@@ -15,6 +15,23 @@
 				font-size: 14px;
 				cursor: pointer;
 			}
+			.questionnaire {
+				margin: 20px 0;
+			}
+			.questionnaire select {
+				padding: 5px;
+				font-size: 16px;
+			}
+			.questionnaire button {
+				padding: 5px 10px;
+				font-size: 16px;
+				cursor: pointer;
+			}
+			.result {
+				margin-top: 10px;
+				font-size: 18px;
+				font-weight: bold;
+			}
 		</style>
 	</head>
 	<body>
@@ -34,6 +51,18 @@
 		</ul>
 		<button id="toggleButton">Hide Isolated Characters</button>
 
+		<!-- Questionnaire -->
+		<div class="questionnaire">
+			<h3>Are They Related?</h3>
+			<select id="character1">
+				<option value="">Select Character 1</option>
+			</select>
+			<select id="character2">
+				<option value="">Select Character 2</option>
+			</select>
+			<button id="checkRelationship">Are They Related?</button>
+			<div class="result" id="result"></div>
+		</div>
 		<div id="cy"></div>
 		<script type="module" src="./got.js"></script>
 	</body>

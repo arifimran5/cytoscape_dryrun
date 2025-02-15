@@ -190,4 +190,55 @@ fetchCharacters().then((d) => {
 			}
 		})
 	})
+
+	// Populate the select menus
+	const character1Select = document.getElementById('character1')
+	const character2Select = document.getElementById('character2')
+
+	characters.forEach((character) => {
+		const option = document.createElement('option')
+		option.value = character.characterName
+		option.textContent = character.characterName
+		character1Select.appendChild(option.cloneNode(true))
+		character2Select.appendChild(option)
+	})
+
+	// Check relationship button
+	const checkRelationshipButton = document.getElementById('checkRelationship')
+	const resultDiv = document.getElementById('result')
+
+	checkRelationshipButton.addEventListener('click', () => {
+		const character1 = character1Select.value
+		const character2 = character2Select.value
+
+		if (!character1 || !character2) {
+			resultDiv.textContent = 'Please select both characters.'
+			return
+		}
+
+		// Check if the characters are related
+		const related = areCharactersRelated(cy, character1, character2)
+		resultDiv.textContent =
+			related.length > 0
+				? `Yes, ${character1} and ${character2} are related!`
+				: `No, ${character1} and ${character2} are not related.`
+	})
+
+	// Function to check if two characters are related
+	function areCharactersRelated(cy, character1, character2) {
+		// Get the nodes for the selected characters
+		const node1 = cy.getElementById(character1)
+		const node2 = cy.getElementById(character2)
+
+		// Check if there is a path between the two nodes
+		const path = cy.elements().bfs({
+			roots: node1,
+			visit: (v) => {
+				if (v.id() === node2.id()) return true
+			},
+			directed: false,
+		})
+
+		return path.found
+	}
 })
